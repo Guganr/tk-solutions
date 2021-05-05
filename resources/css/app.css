@@ -1,0 +1,11 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+.message {
+    background: lightgreen;
+    color: darkgreen;
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 5px;
+}
