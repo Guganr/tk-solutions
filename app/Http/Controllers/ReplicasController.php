@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreReplicaRequest;
 use App\Models\Replica;
 use App\Models\Ticket;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class ReplicasController extends Controller {

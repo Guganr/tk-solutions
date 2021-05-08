@@ -6,7 +6,7 @@ use App\Http\Requests\StorePagamentoRequest;
 use App\Http\Requests\UpdatePagamentoRequest;
 use App\Models\Contrato;
 use App\Models\Pagamento;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use \Datetime;
 use \DateInterval;

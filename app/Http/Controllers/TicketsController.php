@@ -6,7 +6,7 @@ use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Replica;
 use App\Models\Ticket;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class TicketsController extends Controller {

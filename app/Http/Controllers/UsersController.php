@@ -7,14 +7,13 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\ClienteVendedor;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class UsersController extends Controller {
 
     public function index() {
-
         abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $users = QueryBuilder::for(User::class)
                             ->allowedIncludes('roles')

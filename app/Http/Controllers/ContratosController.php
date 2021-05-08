@@ -7,9 +7,8 @@ use App\Http\Requests\UpdateContratoRequest;
 use App\Models\ClienteVendedor;
 use App\Models\Contrato;
 use App\Models\User;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\DB;
 
 class ContratosController extends Controller {
 
@@ -17,11 +16,7 @@ class ContratosController extends Controller {
         abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contratos = Contrato::all();
 
-        $contratoCliente = DB::table('contratos')
-                            ->join('cliente_vendedor', 'contratos.cliente_vendedor_id', '=', 'cliente_vendedor.id')
-                            ->where('cliente_vendedor.cliente_id', '=', auth()->user()->id)
-                            ->select('contratos.*')
-                            ->get();
+        $contratoCliente = $this->goku('contratos');
         return view('contratos.index', compact(['contratos', 'contratoCliente']));
     }
 
@@ -49,6 +44,9 @@ class ContratosController extends Controller {
 
     public function show(Contrato $contrato) {
         abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $check = $this->teste('contratos', $contrato->id);
+        abort_if(empty($check->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('contratos.show', compact('contrato'));
     }
     

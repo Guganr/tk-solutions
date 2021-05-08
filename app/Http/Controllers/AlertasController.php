@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests\StoreAlertaRequest;
-use App\Http\Requests\UpdateAlertaRequest;
 use App\Models\Contrato;
 use App\Models\Alerta;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class AlertasController extends Controller {

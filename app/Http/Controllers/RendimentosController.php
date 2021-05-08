@@ -6,7 +6,7 @@ use App\Http\Requests\StoreRendimentoRequest;
 use App\Http\Requests\UpdateRendimentoRequest;
 use App\Models\Contrato;
 use App\Models\Rendimento;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use \Datetime;
 use \DateInterval;
