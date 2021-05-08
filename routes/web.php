@@ -17,6 +17,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('rendimentos', \App\Http\Controllers\RendimentosController::class);
     Route::get('rendimentos/create/{contratoId}', '\App\Http\Controllers\RendimentosController@create')->name('rendimentoCreate');
     Route::get('rendimentos/edit/{contratoId}', '\App\Http\Controllers\RendimentosController@edit')->name('rendimentoEdit');
+    Route::resource('pagamentos', \App\Http\Controllers\PagamentosController::class);
+    Route::get('pagamentos/create/{pagamentoId}', '\App\Http\Controllers\PagamentosController@create')->name('pagamentoCreate');
+    Route::get('pagamentos/edit/{pagamentoId}', '\App\Http\Controllers\PagamentosController@edit')->name('pagamentoEdit');
     Route::resource('alertas', \App\Http\Controllers\AlertasController::class);
     Route::get('alertas/create/{contratoId}', '\App\Http\Controllers\AlertasController@create')->name('alertaCreate');
     Route::get('alertas/edit/{contratoId}', '\App\Http\Controllers\AlertasController@edit')->name('alertaEdit');

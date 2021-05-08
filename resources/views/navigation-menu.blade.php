@@ -38,6 +38,11 @@
                         {{ __('Clientes') }}
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('users.index',[ 'filter[roles.title]' => 'acessor']) }}" :active="request()->routeIs('users.*')">
+                        {{ __('Acessor') }}
+                    </x-jet-nav-link>
+                </div>
                 @endcan
                 @can('cliente_access')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
