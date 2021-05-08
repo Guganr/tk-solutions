@@ -13,10 +13,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('contratos', 'App\Http\Controllers\ContratosController');
     Route::resource('users', \App\Http\Controllers\UsersController::class);
+    Route::resource('tickets', \App\Http\Controllers\TicketsController::class);
     Route::resource('rendimentos', \App\Http\Controllers\RendimentosController::class);
     Route::get('rendimentos/create/{contratoId}', '\App\Http\Controllers\RendimentosController@create')->name('rendimentoCreate');
     Route::get('rendimentos/edit/{contratoId}', '\App\Http\Controllers\RendimentosController@edit')->name('rendimentoEdit');
     Route::resource('alertas', \App\Http\Controllers\AlertasController::class);
     Route::get('alertas/create/{contratoId}', '\App\Http\Controllers\AlertasController@create')->name('alertaCreate');
     Route::get('alertas/edit/{contratoId}', '\App\Http\Controllers\AlertasController@edit')->name('alertaEdit');
+    Route::resource('replicas', \App\Http\Controllers\ReplicasController::class);
+    Route::get('replicas/create/{replicaId}', '\App\Http\Controllers\ReplicasController@create')->name('replicaCreate');
+    Route::get('replicas/edit/{replicaId}', '\App\Http\Controllers\ReplicasController@edit')->name('replicaEdit');
 });
