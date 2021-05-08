@@ -12,28 +12,23 @@ use \Datetime;
 use \DateInterval;
 use \DatePeriod;
 
-class RendimentosController extends Controller
-{
-    
-    public function index() {
-        //
-    }
+class RendimentosController extends Controller {
 
     public function create($id) {
-        abort_if(Gate::denies('vendedor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id)->load('rendimentos');
         $datas_validas = $this->getDatasValidas($contrato);
         return view('rendimentos.create', compact(['datas_validas', 'contrato']));
     }
 
     public function store(StoreRendimentoRequest $request) {
-        $rendimento = Rendimento::create($request->validated());
+        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $rendimento = Rendimento::create($request->validated());abort_if(Gate::denies(['vendedor_access', 'acessor_access']), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return redirect()->route('rendimentoCreate', ['contratoId' => $request->contrato_id, 'message' => 'Rendimento criado com sucesso']);
     }
 
-    public function show($id)
-    {
-        abort_if(Gate::denies('vendedor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    public function show($id) {
+        abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id);
         $contrato->load('rendimentos');
         $rendimentos = $contrato->rendimentos;
@@ -42,7 +37,7 @@ class RendimentosController extends Controller
     }
 
     public function edit($id) {
-        abort_if(Gate::denies('vendedor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id);
         $contrato->load('rendimentos');
         $rendimentos = $contrato->rendimentos;
@@ -50,6 +45,7 @@ class RendimentosController extends Controller
     }
 
     public function update(UpdateRendimentoRequest $request, $id) {
+        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $rendimento = [
             "valor" => $request->valor,
         ];
@@ -57,10 +53,6 @@ class RendimentosController extends Controller
         return redirect()->route('rendimentoEdit', ['contratoId' => $request->contrato_id, 'message' => 'Rendimento criado com sucesso']);
     }
 
-    public function destroy($id)
-    {
-        //
-    }
     public function getDatasValidas($contrato) {
         $data_inicio_vigencia    = new DateTime($contrato->data_inicio_vigencia);
         $dia_atual      = new DateTime(date("Y-m-d"));

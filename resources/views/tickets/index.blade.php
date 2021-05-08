@@ -11,7 +11,6 @@
             <div class="block mb-8">
                 <a href="{{ route('tickets.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Criar ticket</a>
             </div>
-          @can('cliente_access')
           <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -66,18 +65,17 @@
                               <option {{ $ticket->statusAtual($i) }} value="{{$i}}"> {{ $ticket->getStatus($i) }} </option>
                             @endfor
                           </select>
-                          <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Alterar">
+                          @if ($ticket->getStatus($ticket->status) != "Encerrado")
+                            <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Alterar">
+                          @endif
                           </form>
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a href="{{ route('tickets.show', $ticket->id) }}" class="text-indigo-600 hover:text-indigo-900">Ver</a>                
-                          <a href="{{ route('replicaCreate', ['replicaId' => $ticket->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Responder</a>
-                          {{-- <form class="inline-block" action="{{route('tickets.destroy', $ticket->id)}}"  method="POST" onsubmit="return confirm('Are you sure?');">
-                              <input type="hidden" name="_method" value="DELETE">
-                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Delete">
-                          </form> --}}
+                          @if ($ticket->getStatus($ticket->status) != "Encerrado")
+                            <a href="{{ route('replicaCreate', ['replicaId' => $ticket->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Responder</a>
+                          @endif
                       </td>
                       </tr>
                       @endforeach
@@ -89,7 +87,6 @@
             
             {{ $tickets->links() }}
           </div>
-          @endcan
          
 
         </div>
