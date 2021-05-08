@@ -112,6 +112,14 @@
                                         <a href="{{ route('alertas.show', $contrato->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Ver alertas</a>
                                     </td>
                                 </tr>
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <label>pagamentos</label>
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
+                                        <a href="{{ route('pagamentos.show', $contrato->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Ver pagamentos</a>
+                                    </td>
+                                </tr>
                                 </tr>
                             </table>
                         </div>

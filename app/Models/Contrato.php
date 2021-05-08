@@ -71,4 +71,8 @@ class Contrato extends Model
     public function alertas() {
         return $this->hasMany(Alerta::class);
     }
+
+    public function pagamentos() {
+        return $this->hasMany(Pagamento::class);
+    }
 }

@@ -52,7 +52,7 @@ class UsersController extends Controller
 
     public function show(User $user) {
 
-        abort_if(Gate::denies('cliente_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies(['acessor_access']), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('users.show', compact('user'));
     }

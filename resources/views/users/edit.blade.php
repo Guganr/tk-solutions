@@ -42,13 +42,20 @@
                             <label for="roles" class="block font-medium text-sm text-gray-700">Roles</label>
                             <select name="roles[]" id="roles" class="form-multiselect block rounded-md shadow-sm mt-1 block w-full" multiple="multiple">
                                 @foreach($roles as $id => $role)
-                                    @if ($role != "Cliente")
+                                    @if ($role != "Cliente" && $role != "Acessor")
                                         @can('adm_access')
                                             <option value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
                                         @endcan    
                                     @endif
                                     @if ($role == "Cliente")
-                                        <option value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
+                                        @can('acessor_access')
+                                        <option selected value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
+                                        @endcan    
+                                    @endif
+                                    @if ($role == "Acessor")
+                                        @can('acessor_access')
+                                        <option  value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
+                                        @endcan    
                                     @endif
                                 @endforeach
                             </select>
