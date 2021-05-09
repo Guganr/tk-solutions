@@ -14,7 +14,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 class UsersController extends Controller {
 
     public function index() {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $users = QueryBuilder::for(User::class)
                             ->allowedIncludes('roles')
                             ->allowedFilters('roles.title')

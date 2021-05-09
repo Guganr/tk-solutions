@@ -58,7 +58,7 @@ class Controller extends BaseController
     }
     
     public function isAdmin() {
-        return auth()->user()->getUserRole()->get()[0]->id == 1;
+        return !auth()->user()->getUserRole()->get()[0]->id == 1;
     }
     // public function teste($tabela) {
     //     auth()->user()->load('roles');
