@@ -11,7 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 class ReplicasController extends Controller {
     
     public function create($id) {
-        abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidde');
+        abort_if(Gate::clienteVendedor() || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidde');
+        $checkVendedor = $this->ticketPertenceAoVendedor();
+        $checkCliente = $this->ticketPertenceAoCliente();
+        abort_if(empty($checkVendedor || $checkCliente) || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $ticket = Ticket::find($id);
         $replicas = Replica::where('ticket_id', $id)->get();
         $ticket->load('replicas');
@@ -19,7 +22,10 @@ class ReplicasController extends Controller {
     }
 
     public function store(StoreReplicaRequest $request) {
-        abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidde');
+        abort_if(Gate::clienteVendedor() , Response::HTTP_FORBIDDEN, '403 Forbidde');
+        $checkVendedor = $this->ticketPertenceAoVendedor();
+        $checkCliente = $this->ticketPertenceAoCliente();
+        abort_if(empty($checkVendedor || $checkCliente) || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $replica = Replica::create($request->validated());
         return redirect()->route('replicaCreate', ['replicaId' => $request->ticket_id]);
     }

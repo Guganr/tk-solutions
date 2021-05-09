@@ -17,6 +17,9 @@ class PagamentosController extends Controller {
     public function create($id) {
         abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id)->load('pagamentos');
+        $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
+        $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
+        abort_if(empty($checkVendedor || $checkAcessor) || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $datas_validas = $this->getDatasValidas($contrato);
         return view('pagamentos.create', compact(['datas_validas', 'contrato']));
     }
@@ -29,6 +32,10 @@ class PagamentosController extends Controller {
 
     public function show($id) {
         $contrato = Contrato::find($id);
+        $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
+        $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
+        $checkCliente = $this->ticketPertenceAoCliente();
+        abort_if(empty($checkVendedor || $checkAcessor || $checkCliente) || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato->load('pagamentos');
         $pagamentos = $contrato->pagamentos;
         return view('pagamentos.show', compact(['contrato', 'pagamentos']));
@@ -37,6 +44,9 @@ class PagamentosController extends Controller {
     public function edit($id) {
         abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id);
+        $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
+        $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
+        abort_if(empty($checkVendedor || $checkAcessor) || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato->load('pagamentos');
         $pagamentos = $contrato->pagamentos;
         return view('pagamentos.edit', compact(['contrato', 'pagamentos']));

@@ -12,9 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 class TicketsController extends Controller {
 
     public function index() {
-        abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $tickets = Ticket::paginate(10);
-        
+        abort_if(Gate::clienteVendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $tickets = '';
+        if (auth()->user()->getUserRole()->get()[0]->id == 2) {
+            $tickets = $this->ticketsCliente();
+        } else {
+            $tickets = Ticket::paginate(10);
+        }
         return view('tickets.index', compact('tickets'));
     }
     public function create() {      
@@ -23,6 +27,7 @@ class TicketsController extends Controller {
     }
 
     public function store(StoreTicketRequest $request) {
+        abort_if(Gate::cliente(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $ticket = new Ticket();
         $ticket->user_id = auth()->user()->id;
         $ticket->status = $request->status;
@@ -32,7 +37,10 @@ class TicketsController extends Controller {
     }
 
     public function show($id) {
-        abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::clienteVendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $checkVendedor = $this->ticketPertenceAoVendedor();
+        $checkCliente = $this->ticketPertenceAoCliente();
+        abort_if(empty($checkVendedor || $checkCliente) || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $ticket = Ticket::find($id);
         $replicas = Replica::where('ticket_id', $id)->get();
         $ticket->load('replicas');

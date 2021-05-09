@@ -48,7 +48,7 @@
                         
                         
                         <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $ticket->created_at->format("d/m/Y") }}
+                          {{ date_create($ticket->created_at)->format("d/m/Y") }}
                         </td>
                         
                         

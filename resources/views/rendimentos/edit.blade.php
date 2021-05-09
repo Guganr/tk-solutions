@@ -1,7 +1,7 @@
 <x-app-layout>
    <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-         Editar alertas
+         Editar rendimentos
       </h2>
    </x-slot>
    <div>
@@ -15,8 +15,8 @@
                <a href="{{ route('contratos.show', $contrato->id)  }}" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Voltar para contrato {{$contrato->id}}</a>
          </div>   
          <div class="mt-5 md:mt-0 md:col-span-2 bg-white">
-            @foreach($alertas as $dt)
-               <form method="post" action="{{ route('alertas.update', $contrato->id) }}">
+            @foreach($rendimentos as $dt)
+               <form method="post" action="{{ route('rendimentos.update', $contrato->id) }}">
                   @csrf
                   @method('PUT')
                   <input type="hidden" name="id" value="{{$dt->id}}">

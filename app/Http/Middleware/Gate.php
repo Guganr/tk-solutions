@@ -30,4 +30,9 @@ class Gate extends GateContract {
     {
         return !Gate::check(['cliente_access']) && !Gate::check(['acessor_access']);
     }
+
+    public static function clienteVendedor()
+    {
+        return !Gate::check(['cliente_access']) && !Gate::check(['vendedor_access']);
+    }
 }

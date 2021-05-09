@@ -25,18 +25,9 @@ class UpdateContratoRequest extends FormRequest
     {
 
         return [
-            'alerta' => [
-                'required', 'string',
-            ],
             'valor' => [
                 'required', 'numeric',
             ],
-            // 'duracao_contrato' => [
-            //     'required', 'numeric',
-            // ],
-            // 'dias_para_vencimento' => [
-            //     'required', 'numeric',
-            // ],
             'data_assinatura' => [
                 'required', 'date',
             ],
@@ -45,7 +36,10 @@ class UpdateContratoRequest extends FormRequest
             ],
             'data_vencimento' => [
                 'required', 'date',
-            ]
+            ],
+            'acessor_id'  => [
+                'integer',
+            ],
         ];
     }
 }
