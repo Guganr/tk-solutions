@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-black ">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -12,43 +12,29 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-white  transition {{ request()->routeIs('dashboard') ? "text-blue-300 border-blue-300 outline-none text-blue-300 border-blue-300" : "hover:text-blue-300 hover:border-blue-300 focus:outline-none focus:text-blue-300 focus:border-blue-300" }}" href="{{ route('dashboard') }}" >
                         {{ __('Dashboard') }}
-                    </x-jet-nav-link>
+                    </a>
                 </div>
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('contratos.index') }}" :active="request()->routeIs('contratos.*')">
+                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-white  transition {{ request()->routeIs('contratos.index') ? "text-blue-300 border-blue-300 outline-none text-blue-300 border-blue-300" : "hover:text-blue-300 hover:border-blue-300 focus:outline-none focus:text-blue-300 focus:border-blue-300" }}" href="{{ route('contratos.index') }}" >
                         {{ __('Contratos') }}
-                    </x-jet-nav-link>
+                    </a>
                 </div>
                 @can('vendedor_access')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
+                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-white  transition {{ request()->routeIs('users.index') ? "text-blue-300 border-blue-300 outline-none text-blue-300 border-blue-300" : "hover:text-blue-300 hover:border-blue-300 focus:outline-none focus:text-blue-300 focus:border-blue-300" }}" href="{{ route('users.index') }}" >
                         {{ __('Usuarios') }}
-                    </x-jet-nav-link>
+                    </a>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('users.index', [ 'filter[roles.title]' => 'vendedor']) }}" :active="request()->routeIs('users.*')">
-                        {{ __('Vendedores') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('users.index',[ 'filter[roles.title]' => 'cliente']) }}" :active="request()->routeIs('users.*')">
-                        {{ __('Clientes') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('users.index',[ 'filter[roles.title]' => 'acessor']) }}" :active="request()->routeIs('users.*')">
-                        {{ __('Acessor') }}
-                    </x-jet-nav-link>
-                </div>
+               
                 @endcan
                 @cannot ('acessor_access')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('tickets.index') }}" :active="request()->routeIs('tickets.*')">
+                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-white  transition {{ request()->routeIs('tickets.index') ? "text-blue-300 border-blue-300 outline-none text-blue-300 border-blue-300" : "hover:text-blue-300 hover:border-blue-300 focus:outline-none focus:text-blue-300 focus:border-blue-300" }}" href="{{ route('tickets.index') }}" >
                         {{ __('Tickets') }}
-                    </x-jet-nav-link>
+                    </a>
                 </div>
                 @endcan
             </div>
@@ -60,7 +46,7 @@
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -114,7 +100,7 @@
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-white:text-gray-700 focus:outline-none transition">
                                         {{ Auth::user()->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -125,14 +111,14 @@
                             @endif
                         </x-slot>
 
-                        <x-slot name="content">
+                        <x-slot name="content" >
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('Gerenciar conta') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                            <x-jet-dropdown-link href="{{ route('users.show', auth()->user()->id) }}">
+                                {{ __('Perfil') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -150,7 +136,7 @@
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Sair') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
@@ -173,7 +159,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" >
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
@@ -195,12 +181,12 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" >
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" >
                         {{ __('API Tokens') }}
                     </x-jet-responsive-nav-link>
                 @endif
@@ -225,12 +211,12 @@
                     </div>
 
                     <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
+                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" >
                         {{ __('Team Settings') }}
                     </x-jet-responsive-nav-link>
 
                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-jet-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
+                        <x-jet-responsive-nav-link href="{{ route('teams.create') }}" >
                             {{ __('Create New Team') }}
                         </x-jet-responsive-nav-link>
                     @endcan
