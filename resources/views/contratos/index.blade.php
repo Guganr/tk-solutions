@@ -11,7 +11,7 @@
             <div class="block mb-8">
                 <a href="{{ route('contratos.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Criar Contrato</a>
             </div>
-          @can('vendedor_access')
+          @can('acessor_access')
           <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -56,7 +56,7 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_assinatura }}
+                          {{ date_create($contrato->data_assinatura)->format('d/m/Y') }}
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -64,11 +64,11 @@
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_inicio_vigencia }}
+                          {{ date_create($contrato->data_inicio_vigencia)->format('d/m/Y') }}
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_vencimento }}
+                          {{ date_create($contrato->data_vencimento)->format('d/m/Y') }}
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -85,7 +85,7 @@
                         
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <a href="{{ route('contratos.show', $contrato->id) }}" class="text-indigo-600 hover:text-indigo-900">Ver</a>
-                          <a href="{{ route('contratos.edit', $contrato->id) }}" class="text-indigo-600 hover:text-indigo-900">Add Informações</a>
+                          <a href="{{ route('contratos.edit', $contrato->id) }}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
                           <form class="inline-block" action="{{route('contratos.destroy', $contrato->id)}}"  method="POST" onsubmit="return confirm('Are you sure?');">
                               <input type="hidden" name="_method" value="DELETE">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -131,9 +131,6 @@
                           Dias para vencimento
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Alerta
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Ações
                         </th>
                       </tr>
@@ -165,10 +162,6 @@
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->alerta }}
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

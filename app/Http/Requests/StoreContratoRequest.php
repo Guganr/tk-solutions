@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\ClienteVendedor;
-use Illuminate\Support\Facades\Gate;
 
 class StoreContratoRequest extends FormRequest
 {
@@ -33,9 +32,6 @@ class StoreContratoRequest extends FormRequest
     public function rules()
     {
         return [
-            'alerta' => [
-                'required', 'string',
-            ],
             'valor' => [
                 'required', 'numeric',
             ],
@@ -55,6 +51,9 @@ class StoreContratoRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'acessor_id'  => [
+                'integer',
+            ]
         ];
     }
 }

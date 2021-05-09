@@ -44,7 +44,7 @@
                     </x-jet-nav-link>
                 </div>
                 @endcan
-                @can('cliente_access')
+                @cannot ('acessor_access')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('tickets.index') }}" :active="request()->routeIs('tickets.*')">
                         {{ __('Tickets') }}

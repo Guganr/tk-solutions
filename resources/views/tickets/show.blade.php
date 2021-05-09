@@ -43,7 +43,9 @@
             {{-- @endforeach --}}
             <div class="block mt-8">                
                 {{-- <a href="{{ route('alertaEdit', ['ticketId' => $ticket->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Alertas</a> --}}
-
+                @if ($ticket->getStatus($ticket->status) != "Encerrado")
+                    <a href="{{ route('replicaCreate', ['replicaId' => $ticket->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Responder</a>
+                @endif
             </div>
         </div>
     </div>

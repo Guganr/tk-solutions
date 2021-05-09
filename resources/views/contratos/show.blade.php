@@ -28,7 +28,7 @@
                                         data_assinatura
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $contrato->data_assinatura }}
+                                        {{ date_create($contrato->data_assinatura)->format("d/m/Y") }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
@@ -44,7 +44,7 @@
                                         data_inicio_vigencia
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $contrato->data_inicio_vigencia }}
+                                        {{ date_create($contrato->data_inicio_vigencia)->format("d/m/Y") }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
@@ -52,7 +52,7 @@
                                         data_vencimento
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ $contrato->data_vencimento }}
+                                        {{ date_create($contrato->data_vencimento)->format("d/m/Y") }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
@@ -130,9 +130,6 @@
             </ul>
             <div class="block mt-8">
                 <a href="{{ route('contratos.edit', $contrato->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar</a>
-            </div>
-            <div class="block mt-8">
-                <a href="{{ route('rendimentoCreate', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Adicionar Rendimentos</a>
             </div>
         </div>
     </div>

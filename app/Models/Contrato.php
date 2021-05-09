@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\QueryBuilder\QueryBuilder;
 use App\Models\User;
 
 class Contrato extends Model
@@ -20,8 +19,10 @@ class Contrato extends Model
         'data_vencimento', 
         'duracao_contrato', 
         'dias_para_vencimento', 
+        'acessor_id', 
         'alerta'
     ];
+    public $incrementing = true;
 
     protected $dateFormat = 'U';
 
@@ -74,5 +75,13 @@ class Contrato extends Model
 
     public function pagamentos() {
         return $this->hasMany(Pagamento::class);
+    }
+    public function acessorAtual($id)
+    {
+
+        if ($this->id == $id)
+            return "selected";
+        else
+            return "";
     }
 }

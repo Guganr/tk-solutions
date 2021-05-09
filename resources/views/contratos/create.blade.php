@@ -55,7 +55,7 @@
                   </div>
                   <div class="px-4 py-5 bg-white sm:p-6">
                         <label for="clientes" class="block font-medium text-sm text-gray-700">clientes</label>
-                        <select name="clientes[]" id="clientes" class="form-multiselect block rounded-md shadow-sm mt-1 block w-full" multiple="multiple">
+                        <select name="clientes[]" id="clientes" class="form-multiselect block rounded-md shadow-sm mt-1 block w-full" >
                            @foreach($clientes as $cliente)
                               <option  value="{{ $cliente->id }}"{{ in_array($cliente->id, old('clientes', [])) ? ' selected' : '' }}>{{ $cliente->name }}</option>
                            @endforeach
@@ -65,14 +65,17 @@
                         @enderror
                   </div>
                   <div class="shadow overflow-hidden sm:rounded-md">
+                     
                      <div class="px-4 py-5 bg-white sm:p-6">
-                        <label for="alerta" class="block font-medium text-sm text-gray-700">Alerta
-                        </label>
-                        <input type="text" name="alerta" id="alerta" type="text" class="form-input rounded-md shadow-sm mt-1 block w-full"
-                           value="{{ old('alerta', '') }}" />
-                        @error('alerta')
-                        <p class="text-sm text-red-600">{{ $message }}
-                        </p>
+                        <label for="acessores" class="block font-medium text-sm text-gray-700">Acessores</label>
+                        <select name="acessor_id" id="acessor_id" class="form block rounded-md shadow-sm mt-1 block w-full" >  
+                           <option  value="0"> -- selecione um acessor -- </option>
+                           @foreach($acessores as $acessor)
+                              <option  value="{{ $acessor->id }}">{{ $acessor->name }}</option>
+                           @endforeach
+                        </select>
+                        @error('acessor_id')
+                           <p class="text-sm text-red-600">{{ $message }}</p>
                         @enderror
                      </div>
                   
