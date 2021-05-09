@@ -15,7 +15,7 @@ use \DatePeriod;
 class RendimentosController extends Controller {
 
     public function create($id) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id)->load('rendimentos');
         $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
         $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
@@ -25,7 +25,7 @@ class RendimentosController extends Controller {
     }
 
     public function store(StoreRendimentoRequest $request) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $rendimento = Rendimento::create($request->validated());abort_if(Gate::denies(['vendedor_access', 'acessor_access']), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return redirect()->route('rendimentoCreate', ['contratoId' => $request->contrato_id, 'message' => 'Rendimento criado com sucesso']);
     }
@@ -44,7 +44,7 @@ class RendimentosController extends Controller {
     }
 
     public function edit($id) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id);
         $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
         $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
@@ -55,7 +55,7 @@ class RendimentosController extends Controller {
     }
 
     public function update(UpdateRendimentoRequest $request, $id) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $rendimento = [
             "valor" => $request->valor,
         ];

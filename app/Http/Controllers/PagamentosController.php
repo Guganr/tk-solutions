@@ -15,7 +15,7 @@ use \DatePeriod;
 class PagamentosController extends Controller {
 
     public function create($id) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id)->load('pagamentos');
         $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
         $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
@@ -25,7 +25,7 @@ class PagamentosController extends Controller {
     }
 
     public function store(StorePagamentoRequest $request) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $pagamento = Pagamento::create($request->validated());
         return redirect()->route('pagamentoCreate', ['pagamentoId' => $request->contrato_id, 'message' => 'Pagamento criado com sucesso']);
     }
@@ -42,7 +42,7 @@ class PagamentosController extends Controller {
     }
 
     public function edit($id) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato = Contrato::find($id);
         $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
         $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
@@ -53,7 +53,7 @@ class PagamentosController extends Controller {
     }
 
     public function update(UpdatePagamentoRequest $request, $id) {
-        abort_if(Gate::vendedorAcessor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::vendedorAcessor() && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $pagamento = [
             "valor" => $request->valor,
         ];
