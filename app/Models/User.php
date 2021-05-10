@@ -86,4 +86,8 @@ class User extends Authenticatable
             echo '-';
         }
     }
+    public function isAdmin()
+    {
+        return auth()->user()->getUserRole()->get()[0]->id == 1;
+    }
 }

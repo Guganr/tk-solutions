@@ -30,7 +30,7 @@
                 </div>
                
                 @endcan
-                @cannot ('acessor_access')
+                @canany (['vendedor_access', 'cliente_access'])
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-white  transition {{ request()->routeIs('tickets.index') ? "text-blue-300 border-blue-300 outline-none text-blue-300 border-blue-300" : "hover:text-blue-300 hover:border-blue-300 focus:outline-none focus:text-blue-300 focus:border-blue-300" }}" href="{{ route('tickets.index') }}" >
                         {{ __('Tickets') }}

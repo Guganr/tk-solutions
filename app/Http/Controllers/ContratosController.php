@@ -16,7 +16,7 @@ class ContratosController extends Controller {
 
     public function index() {
         abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $contratos = Contrato::all();
+        $contratos = Contrato::paginate(10);
 
         $contratoCliente = $this->contratosCliente('contratos');
         return view('contratos.index', compact(['contratos', 'contratoCliente']));
