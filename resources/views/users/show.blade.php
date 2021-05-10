@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-extrsbold text-xl text-white leading-tight">
+        <h2 class="font-extrabold text-xl text-white leading-tight">
             Informações: {{ $user->name }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('users.index') }}" class="bg-blue-500 hover:bg-white hover:text-blue-500 text-white font-bold py-0 px-2 rounded">< Voltar</a>
+                <a href="{{ route('users.index') }}" class="bg-yellow-500 hover:bg-white hover:text-blue-500 text-white font-bold py-0 px-2 rounded">< Voltar</a>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
