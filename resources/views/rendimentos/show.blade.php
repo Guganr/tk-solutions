@@ -1,25 +1,54 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Contrato {{ $contrato->id }}
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            Rendimentos (Contrato #{{ $contrato->id }})
         </h2>
     </x-slot>
 
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('contratos.show', $contrato->id) }}" class="bg-gray-200 hover:bg-gray-300 text-black font-bold py-2 px-4 rounded">Voltar</a>
+                <a href="{{ route('contratos.index') }}" class="bg-yellow-500 hover:bg-white hover:text-yellow-500 text-white font-bold py-0 px-2 rounded">< Voltar</a>
             </div>
-            @foreach($rendimentos as $dt)
-                <div class="grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 p-4">
-                    <label for="datas_rendimento" class="text-lg text-center inline-block my-2 col-span-3 font-bold text-gray-700">{{ substr_replace($dt->mes_referencia, '/', 2, 0) }}</label>
-                    <label type="number" name="valor" id="valor" class="text-center inline-block my-2 col-span-3 font-bold text-gray-700"> {{$dt->valor}} </label>
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="shadow py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="shadow overflow-hidden border border-gray-600 sm:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-600 w-full">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                                 ID
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                                    Mês referência
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                                    Valor
+                                </th>
+                                @foreach($rendimentos as $r)
+                                <tr class="border-b border-gray-600">
+                                    <td scope="col" class="px-6 py-3 bg-gray-900 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        {{ $r->id }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">
+                                         {{ substr_replace($r->mes_referencia, '/', 2, 0) }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">
+                                        R${{$r->valor}}
+                                    </td>
+                                </tr>
+                                
+                            @endforeach
+                                
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            @endforeach
-            <div class="block mt-8">                
-                <a href="{{ route('rendimentoCreate', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Adicionar Rendimentos</a>
-                <a href="{{ route('rendimentoEdit', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Rendimentos</a>
-
+            </div>
+            <ul>
+            </ul>
+            <div class="block mt-8">
+            <a href="{{ route('rendimentoCreate', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Adicionar Rendimentos</a>
+            <a href="{{ route('rendimentoEdit', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Rendimentos</a>
             </div>
         </div>
     </div>

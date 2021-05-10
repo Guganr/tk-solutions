@@ -69,7 +69,7 @@ class ContratosController extends Controller {
         $check = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
         abort_if(empty($check->all()) && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato->update($request->validated());
-        return redirect()->route('contratos.index');
+        return redirect()->route('contratos.show', $contrato);
     }
 
     public function destroy(Contrato $contrato) {
