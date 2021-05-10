@@ -42,7 +42,7 @@
                                         Email
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-black text-gray-500 uppercase tracking-wider">
-                                        Email Verified At
+                                        Data de criação
                                     </th>
                                     <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-black text-gray-500 uppercase tracking-wider">
                                         Roles
@@ -68,7 +68,7 @@
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900">
-                                            {{ $user->email_verified_at }}
+                                            {{ date_create($user->created_at)->format("d/m/Y") }}
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900">

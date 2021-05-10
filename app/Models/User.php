@@ -72,4 +72,18 @@ class User extends Authenticatable
     public function getUserRole() {
         return $this->roles();
     }
+
+
+    public function vendedor()
+    {
+        $cliente = ClienteVendedor::where('cliente_id', $this->id)->first();
+        if (null !== $cliente) {
+            $cliente->refresh();
+            $vendedor = User::where('id', $cliente->vendedor_id)->first();
+            $vendedor->refresh();
+            echo "<a target='_blank' href='" . route('users.show', $vendedor->id) . "' >" . $vendedor->name . "</a>";
+        } else {
+            echo '-';
+        }
+    }
 }
