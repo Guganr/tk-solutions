@@ -8,6 +8,7 @@ use App\Models\Replica;
 use App\Models\Ticket;
 use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TicketsController extends Controller {
 
@@ -17,7 +18,10 @@ class TicketsController extends Controller {
         if (auth()->user()->getUserRole()->get()[0]->id == 2) {
             $tickets = $this->ticketsCliente();
         } else {
-            $tickets = Ticket::paginate(10);
+            $tickets =
+            QueryBuilder::for(Ticket::class)
+                ->allowedFilters('status')
+                ->paginate(10);
         }
         return view('tickets.index', compact('tickets'));
     }

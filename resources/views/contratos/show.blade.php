@@ -71,14 +71,6 @@
                                         {{ $contrato->getDiasParaVencimento() }}
                                     </td>
                                 </tr>
-                                <tr class="border-b border-gray-600">
-                                    <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        alerta
-                                    </th>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">
-                                        {{ $contrato->alerta }}
-                                    </td>
-                                </tr>
                                 </tr>
                                 <tr class="border-b border-gray-600">
                                     <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-medium text-white uppercase tracking-wider">

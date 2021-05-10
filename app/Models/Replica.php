@@ -18,4 +18,14 @@ class Replica extends Model
     {
         return $this->hasOne(Ticket::class);
     }
+    public function responsavel()
+    {
+        $user = User::where('id', $this->responsavel)->first();
+        if (null !== $user) {
+            $user->refresh();
+            return $user->name;
+        } else {
+            return '-';
+        }
+    }
 }

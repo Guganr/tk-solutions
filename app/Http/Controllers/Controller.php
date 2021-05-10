@@ -41,7 +41,8 @@ class Controller extends BaseController
     }
 
     public function ticketsCliente() {
-        return Ticket::where('user_id', '=', auth()->user()->id)->paginate(10);
+        return Ticket::where('user_id', '=', auth()->user()->id)->allowedFilters('status')
+                ->paginate(10);
     }
 
     public function ticketPertenceAoCliente()

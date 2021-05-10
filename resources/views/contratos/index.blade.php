@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- This example requires Tailwind CSS v2.0+ -->
             <div class="block mb-8">
-                <a href="{{ route('contratos.create') }}" class="bg-yellow-500 hover:bg-white hover:text-yellow-500 text-white font-bold py-0 px-2 rounded">Criar Contrato</a>
+                <a href="{{ route('contratos.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Criar contrato</a>
             </div>
           @canany(['acessor_access', 'adm_access'])
           <div class="flex flex-col">
@@ -19,31 +19,31 @@
                   <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                       <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Identificação do contrato
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data da Assinatura
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Valor
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data do Início da vigência
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data de vencimento
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Duração do Contrato
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Dias para vencimento
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Vendedor
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Ações
                         </th>
                       </tr>
@@ -111,28 +111,28 @@
                   <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                       <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Identificação do contrato
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data da Assinatura
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Valor
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data do Início da vigência
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data de vencimento
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Duração do Contrato
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Dias para vencimento
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-white bg-black uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Ações
                         </th>
                       </tr>
