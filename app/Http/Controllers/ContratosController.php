@@ -18,8 +18,9 @@ class ContratosController extends Controller {
         abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contratos = Contrato::paginate(10);
         $contratoCliente = $this->contratosCliente('contratos');
+        $contratoAcessor = $this->contratosAcessor('contratos');
         $userRole = User::find(1);
-        return view('contratos.index', compact(['contratos', 'contratoCliente', 'userRole']));
+        return view('contratos.index', compact(['contratos','contratoAcessor', 'contratoCliente', 'userRole']));
     }
 
     public function create() {
@@ -52,7 +53,8 @@ class ContratosController extends Controller {
         $checkVendedor = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
         $checkCliente = $this->contratoPertenceAoCliente('contratos', $contrato->id);
         $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
-        abort_if((empty($checkVendedor->all() || $checkCliente->all()) || $checkAcessor ) && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if (!$checkAcessor)
+            abort_if((empty($checkCliente->all()) && Gate::vendedor()), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $userRole = User::find(1);
         return view('contratos.show', compact(['contrato', 'userRole']));
     }
@@ -60,7 +62,8 @@ class ContratosController extends Controller {
     public function edit(Contrato $contrato) {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $check = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
-        abort_if(empty($check->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if(!User::isAdmin())
+            abort_if(empty($check->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $acessores = $this->getAcessores();
         return view('contratos.edit', compact(['contrato', 'acessores']));
     }
@@ -68,7 +71,7 @@ class ContratosController extends Controller {
     public function update(UpdateContratoRequest $request, Contrato $contrato) {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $check = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
-        abort_if(empty($check->all()) && $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(empty($check->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato->update($request->validated());
         return redirect()->route('contratos.show', $contrato);
     }
@@ -76,7 +79,8 @@ class ContratosController extends Controller {
     public function destroy(Contrato $contrato) {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $check = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
-        abort_if(empty($check->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if (!User::isAdmin())
+            abort_if(empty($check->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato->delete();
         return redirect()->route('contratos.index');
     }

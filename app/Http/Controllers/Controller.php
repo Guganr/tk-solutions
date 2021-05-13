@@ -43,6 +43,10 @@ class Controller extends BaseController
         ->get();
     }
 
+    public function contratosAcessor() {
+        return Contrato::where('acessor_id', '=', auth()->user()->id)->get();
+    }
+    
     public function ticketsCliente() {
         return QueryBuilder::for(Ticket::class)
             ->where('user_id', '=', auth()->user()->id)

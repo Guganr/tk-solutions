@@ -13,7 +13,7 @@
                 <a href="{{ route('contratos.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Criar contrato</a>
               @endif
               </div>
-          @canany(['acessor_access', 'adm_access'])
+          @can('vendedor_access')
           <div class="flex flex-col">
             <div class="-my-2 overflow-visible sm:-mx-6 lg:-mx-8">
               <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -141,6 +141,84 @@
                     </thead>
                     <tbody class="bg-gray-900 divide-y divide-gray-600 text-white">
                       @foreach ($contratoCliente as $contrato)
+                      <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->id }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->data_assinatura }}
+                        </td>
+                        
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          R${{ $contrato->valor }}
+                        </td>
+                        
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->data_inicio_vigencia }}
+                        </td>
+                        
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->data_vencimento }}
+                        </td>
+                        
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->getDuracaoContrato() }}
+                        </td>
+                        
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->getDiasParaVencimento() }}
+                        </td>
+                        
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-black">
+                          <a href="{{ route('contratos.show', $contrato->id) }}" class="text-indigo-600 hover:text-indigo-900">Ver</a>
+                          
+                      </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endcan
+          @can('acessor_access')
+          <div class="flex flex-col">
+            <div class="-my-2 overflow-visible sm:-mx-6 lg:-mx-8">
+              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-visible border-b border-gray-200 sm:rounded-lg">
+                  <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Identificação do contrato
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Data da Assinatura
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Valor
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Data do Início da vigência
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Data de vencimento
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Duração do Contrato
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Dias para vencimento
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Ações
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-gray-900 divide-y divide-gray-600 text-white">
+                      @foreach ($contratoAcessor as $contrato)
                       <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                           {{ $contrato->id }}
