@@ -11,9 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 class ReplicasController extends Controller {
     
     public function create($id) {
-        abort_if(Gate::clienteVendedor() || $this->isAdmin(), Response::HTTP_FORBIDDEN, '403 Forbidde');
         $checkCliente = $this->ticketPertenceAoCliente($id);
-        abort_if(empty($checkCliente->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(empty($checkCliente->all()) && Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $ticket = Ticket::find($id);
         $replicas = Replica::where('ticket_id', $id)->get();
         $ticket->load('replicas');
