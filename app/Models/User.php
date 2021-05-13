@@ -72,4 +72,31 @@ class User extends Authenticatable
     public function getUserRole() {
         return $this->roles();
     }
+
+
+    public function vendedor()
+    {
+        $cliente = ClienteVendedor::where('cliente_id', $this->id)->first();
+        if (null !== $cliente) {
+            $cliente->refresh();
+            $vendedor = User::where('id', $cliente->vendedor_id)->first();
+            $vendedor->refresh();
+            echo "<a target='_blank' href='" . route('users.show', $vendedor->id) . "' >" . $vendedor->name . "</a>";
+        } else {
+            echo '-';
+        }
+    }
+    public static function isAdmin() {
+        return auth()->user()->getUserRole()->get()[0]->id == 1;
+    }
+    public static function isCliente() {
+        return auth()->user()->getUserRole()->get()[0]->id == 2;
+    }
+    public static function isVendedor() {
+        return auth()->user()->getUserRole()->get()[0]->id == 3;
+    }
+    public static function isAcessor() {
+        return auth()->user()->getUserRole()->get()[0]->id == 4;
+    }
+    
 }

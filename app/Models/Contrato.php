@@ -65,6 +65,16 @@ class Contrato extends Model
         echo "<a target='_blank' href='" . route('users.show', $vendedor->id) . "' >" . $vendedor->name . "</a>";
     }
 
+    public function acessor() {
+        $acessor = User::where('id', $this->acessor_id)->first();
+        if (null !== $acessor) {
+            $acessor->refresh();
+            echo "<a target='_blank' href='" . route('users.show', $acessor->id) . "' >" . $acessor->name . "</a>";
+        } else {
+            return '-';
+        }
+    }
+
     public function rendimentos() {
         return $this->hasMany(Rendimento::class);
     }

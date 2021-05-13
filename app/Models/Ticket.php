@@ -45,4 +45,14 @@ class Ticket extends Model
         else 
             return "";
     }
+    public function cliente()
+    {
+        $user = User::where('id', $this->user_id)->first();
+        if (null !== $user) {
+            $user->refresh();
+            return $user->name ;
+        } else {
+            return '-';
+        }
+    }
 }
