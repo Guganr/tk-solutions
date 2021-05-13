@@ -47,8 +47,10 @@
             <ul>
             </ul>
             <div class="block mt-8">
-            <a href="{{ route('pagamentoCreate', ['pagamentoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Adicionar Pagamentos</a>
-            <a href="{{ route('pagamentoEdit', ['pagamentoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Pagamentos</a>
+              @if(!$userRole->isCliente())
+                <a href="{{ route('pagamentoCreate', ['pagamentoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Adicionar Pagamentos</a>
+                <a href="{{ route('pagamentoEdit', ['pagamentoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Pagamentos</a>
+                @endif
             </div>
         </div>
     </div>

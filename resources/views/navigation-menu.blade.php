@@ -1,4 +1,23 @@
 <nav x-data="{ open: false }" class="bg-black ">
+    <?php 
+
+    function getRole() {
+        switch(auth()->user()->getUserRole()->get()[0]->id) {
+            case 1:
+                echo "Admin";
+                break;
+            case 2:
+                echo "Cliente";
+                break;
+            case 3:
+                echo "Vendedor";
+                break;
+            case 4:
+                echo "Acessor";
+                break;
+        }
+    }
+    ?>
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -37,6 +56,9 @@
                     </a>
                 </div>
                 @endcan
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <h2 class="inline-flex bg-yellow-300 items-center font-black text-blue-900">{{ getRole() }}</h2>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

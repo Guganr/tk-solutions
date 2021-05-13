@@ -90,6 +90,14 @@
                                 </tr>
                                 <tr class="border-b border-gray-600">
                                     <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        acessor
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">
+                                        {{ $contrato->acessor() }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-600">
+                                    <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-medium text-white uppercase tracking-wider">
                                         <label>Rendimentos</label>
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">
@@ -121,7 +129,9 @@
             <ul>
             </ul>
             <div class="block mt-8">
+              @if($userRole->isAdmin() || $userRole->isVendedor())
                 <a href="{{ route('contratos.edit', $contrato->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar</a>
+              @endif
             </div>
         </div>
     </div>

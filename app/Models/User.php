@@ -86,8 +86,17 @@ class User extends Authenticatable
             echo '-';
         }
     }
-    public function isAdmin()
-    {
+    public static function isAdmin() {
         return auth()->user()->getUserRole()->get()[0]->id == 1;
     }
+    public static function isCliente() {
+        return auth()->user()->getUserRole()->get()[0]->id == 2;
+    }
+    public static function isVendedor() {
+        return auth()->user()->getUserRole()->get()[0]->id == 3;
+    }
+    public static function isAcessor() {
+        return auth()->user()->getUserRole()->get()[0]->id == 4;
+    }
+    
 }

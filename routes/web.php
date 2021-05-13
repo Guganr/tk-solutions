@@ -82,10 +82,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
-    $contratos = getContratosDashboard();
-    $users = getUsuariosDashboard();
-
-    return view('dashboard', compact(['contratos', 'users']));
+    // $contratos = getContratosDashboard();
+    // $users = getUsuariosDashboard();
+    return view('dashboard');
+    // return view('dashboard', compact(['contratos', 'users']));
 })->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function () {

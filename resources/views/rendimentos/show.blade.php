@@ -8,7 +8,7 @@
     <div>
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="block mb-8">
-                <a href="{{ route('contratos.index') }}" class="bg-yellow-500 hover:bg-white hover:text-yellow-500 text-white font-bold py-0 px-2 rounded">< Voltar</a>
+                <a href="{{ route('contratos.show', $contrato->id) }}" class="bg-yellow-500 hover:bg-white hover:text-yellow-500 text-white font-bold py-0 px-2 rounded">< Voltar</a>
             </div>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -47,9 +47,11 @@
             <ul>
             </ul>
             <div class="block mt-8">
+              @if(!$userRole->isCliente())
             <a href="{{ route('rendimentoCreate', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Adicionar Rendimentos</a>
             <a href="{{ route('rendimentoEdit', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Rendimentos</a>
-            </div>
+                @endif
+        </div>
         </div>
     </div>
 </x-app-layout>

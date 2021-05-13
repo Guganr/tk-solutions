@@ -9,25 +9,27 @@
             <div class="block mb-8">
                 <a href="{{ route('tickets.index') }}" class="bg-yellow-500 hover:bg-white hover:text-yellow-500 text-white font-bold py-0 px-2 rounded">< Voltar</a>
             </div>
-         <form class="inline-block" action="{{route('tickets.update', $ticket->id)}}"  method="POST" onsubmit="return confirm('Tem certeza?');">
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="responsavel" value="{{ auth()->user()->id }}">
-            <input type="hidden" name="id" value="{{ $ticket->id }}">
-            <select name="status" class="bg-black text-white">
-            @for($i = 1; $i < 4; $i++)
-            <option {{ $ticket->statusAtual($i) }} value="{{$i}}"> {{ $ticket->getStatus($i) }} </option>
-            @endfor
-            </select>
-            @if ($ticket->getStatus($ticket->status) != "Encerrado")
-            <button type="submit" class="inline-flex text-green-500 hover:text-white ml-4">
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-               </svg>
-            </button>
-            @endif
-         </form>
+         
+            @if($userRole->isVendedor() || $userRole->isAdmin())
+               <form class="inline-block" action="{{route('tickets.update', $ticket->id)}}"  method="POST" onsubmit="return confirm('Tem certeza?');">
+               @csrf
+               @method('PUT')
+               
+               <input type="hidden" name="_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="responsavel" value="{{ auth()->user()->id }}">
+               <input type="hidden" name="id" value="{{ $ticket->id }}">
+               <select name="status" class="bg-black text-white">
+                  @for($i = 1; $i < 4; $i++)
+                  <option class="text-white" {{ $ticket->statusAtual($i) }} value="{{$i}}"> {{ $ticket->getStatus($i) }} </option>
+                  @endfor
+               </select>
+               @if ($ticket->getStatus($ticket->status) != "Encerrado")
+                  <button type="submit" class="inline-flex text-green-500 hover:text-white ml-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg></button>
+               @endif
+               </form>
+               @else
+               <div class="w-36 text-center py-2 px-5 bg-white font-black"> {{$ticket->getStatus($ticket->status)  }} </div>
+               @endif
          <div class="antialiased mx-auto w-full my-4">
             <div class="space-y-4">
                <div class="flex">
@@ -55,8 +57,7 @@
          </div>
          
          <div class="block mt-8">                
-            {{-- <a href="{{ route('alertaEdit', ['ticketId' => $ticket->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Alertas</a> --}}
-            @if ($ticket->getStatus($ticket->status) != "Encerrado")
+            @if ($ticket->getStatus($ticket->status) != "Encerrado"  || $userRole->isAcessor())
             <a href="{{ route('replicaCreate', ['replicaId' => $ticket->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Responder</a>
             @endif
          </div>

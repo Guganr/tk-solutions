@@ -48,7 +48,9 @@
             <ul>
             </ul>
             <div class="block mt-8">
+              @if(!$userRole->isCliente())
                 <a href="{{ route('alertaCreate', ['contratoId' => $contrato->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Adicionar Alertas</a>
+            @endif
             </div>
         </div>
     </div>

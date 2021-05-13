@@ -9,8 +9,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- This example requires Tailwind CSS v2.0+ -->
             <div class="block mb-8">
+              @if($userRole->isVendedor() || $userRole->isAdmin())
                 <a href="{{ route('contratos.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Criar contrato</a>
-            </div>
+              @endif
+              </div>
           @canany(['acessor_access', 'adm_access'])
           <div class="flex flex-col">
             <div class="-my-2 overflow-visible sm:-mx-6 lg:-mx-8">
@@ -161,9 +163,11 @@
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->getDuracaoContrato() }}
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->getDiasParaVencimento() }}
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-black">
