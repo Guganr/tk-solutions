@@ -4,187 +4,23 @@
             {{ __('Lista de Contratos') }}
         </h2>
     </x-slot>
+        
+            <form method="post" action="{{ route('replicas.store') }}" enctype="multipart/form-data">
+               @csrf
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- This example requires Tailwind CSS v2.0+ -->
-            <div class="block mb-8">
-                <a href="{{ route('contratos.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Criar Contrato</a>
+            <div class="flex w-full h-screen items-center justify-center bg-grey-lighter">
+                <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                    <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                    </svg>
+                    <span class="mt-2 text-base leading-normal">Select a file</span>
+                <input type='file' name="goku" class="hidden" />
+                </label>
             </div>
-          @can('vendedor_access')
-          <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                      <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Identificação do contrato
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Data da Assinatura
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Valor
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Data do Início da vigência
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Data de vencimento
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Duração do Contrato
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Dias para vencimento
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Alerta
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Ações
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      @foreach ($contratos as $contrato)
-                      <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->id }}
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_assinatura }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->valor }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_inicio_vigencia }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_vencimento }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->getDuracaoContrato() }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->getDiasParaVencimento() }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->alerta }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href="{{ route('contratos.show', $contrato->id) }}" class="text-indigo-600 hover:text-indigo-900">Ver</a>
-                          <a href="{{ route('contratos.edit', $contrato->id) }}" class="text-indigo-600 hover:text-indigo-900">Add Informações</a>
-                          <form class="inline-block" action="{{route('contratos.destroy', $contrato->id)}}"  method="POST" onsubmit="return confirm('Are you sure?');">
-                              <input type="hidden" name="_method" value="DELETE">
-                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Delete">
-                          </form>
-                      </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          @endcan
-          @can('cliente_access')
-          <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                      <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Identificação do contrato
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Data da Assinatura
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Valor
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Data do Início da vigência
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Data de vencimento
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Duração do Contrato
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Dias para vencimento
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Alerta
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Ações
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      @foreach ($contratoCliente as $contrato)
-                      <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->id }}
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_assinatura }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->valor }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_inicio_vigencia }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->data_vencimento }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap">
-                          {{ $contrato->alerta }}
-                        </td>
-                        
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href="{{ route('contratos.show', $contrato->id) }}" class="text-indigo-600 hover:text-indigo-900">Ver</a>
-                          
-                      </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          @endcan
-
-        </div>
-    </div>
+                  <div class="flex items-center justify-end px-4 py-3 bg-black border-t border-gray-600 text-right sm:px-6">
+                     <button class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white hover:text-green-500 uppercase tracking-widest hover:bg-white active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
+                     Editar Contrato
+                     </button>
+                  </div>
+            </form>
 </x-app-layout>

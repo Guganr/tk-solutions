@@ -10,13 +10,30 @@ use App\Models\Ticket;
 use App\Models\Contrato;
 use App\Models\Pagamento;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-
+    public function upload($request, $tabela, $fileNome, $entidadeId) {
+        if ($request->hasFile($fileNome)) {
+            $file = $request->file($fileNome);
+            $file->store('local');
+            $fileNome = $file->getClientOriginalName();
+            $fileCaminho = Storage::path($fileNome);
+            $entidade_id = $entidadeId;
+            $responsavel = auth()->user()->id;
+            return DB::table($tabela)->insert([
+                'nome' => $fileNome,
+                'contrato_id' => $entidade_id,
+                'responsavel' => $responsavel,
+                'caminho' => $fileCaminho,
+            ]);
+        }
+        return false;
+    }
     public function contratoPertenceAoCliente($tabela, $tabela_id) {
         return DB::table($tabela)
             ->join('cliente_vendedor', $tabela . '.cliente_vendedor_id', '=', 'cliente_vendedor.id')
