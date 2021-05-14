@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 class Contrato extends Model
@@ -50,6 +51,13 @@ class Contrato extends Model
         }
     }
 
+
+    public function uploads() {
+        return DB::table("upload_contrato")
+            ->where('contrato_id', $this->id)
+            ->select('*')
+            ->get();
+    }
 
     public function cliente() {
         $user = ClienteVendedor::where('id', $this->cliente_vendedor_id)->first();

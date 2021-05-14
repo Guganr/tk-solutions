@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Ticket extends Model
 {
@@ -54,5 +55,14 @@ class Ticket extends Model
         } else {
             return '-';
         }
+    }
+
+
+    public function uploads()
+    {
+        return DB::table("upload_ticket")
+        ->where('ticket_id', $this->id)
+            ->select('*')
+            ->get();
     }
 }
