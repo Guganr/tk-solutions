@@ -19,39 +19,20 @@ class ReplicasController extends Controller {
         $ticket = Ticket::find($id);
         $replicas = Replica::where('ticket_id', $id)->get();
         $ticket->load('replicas');
-        return view('replicas.create', compact(["ticket", 'replicas']));
+        $uploads = $ticket->uploads();
+        $upload = $uploads->all();
+        return view('replicas.create', compact(["ticket", 'replicas', 'upload']));
     }
 
-    // public function store(StoreReplicaRequest $request) {
-    //     abort_if(Gate::clienteVendedor() , Response::HTTP_FORBIDDEN, '403 Forbidde');
-    //     $replica = Replica::create($request->validated());
-    //     return redirect()->route('replicaCreate', ['replicaId' => $request->ticket_id]);
-    // }
-
-
-    public function index()
-    {
-        $storage = Storage::disk('local')->put('example.txt', 'Contents');
-        // dd($storage);
-        return view('replicas.index');
-    }
-
-    public function store(Request $request)
-    {
+    public function store(StoreReplicaRequest $request) {
+        abort_if(Gate::clienteVendedor() , Response::HTTP_FORBIDDEN, '403 Forbidde');
+        $replica = Replica::create($request->validated());
         $request->validate([
-            'goku' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file_upload_replica' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        if($request->hasFile('goku')){
-            $file = $request->file('goku');
-            $file->store('local');
-            echo $file->path();
-            echo Storage::path($file->getClientOriginalName());
-            // Storage::disk('local')->put('example.txt', 'Contents');
-            // Storage::path('file.jpg');
-        }
-        // dd($file);
-        // $storage = Storage::disk('local')->put('example.txt', 'Contents');
-        // dd ($file);
-        return view('replicas.index');
+        $this->entidade = 'replica_id';
+        $this->upload($request, 'upload_replica', 'file_upload_replica', $replica->id);
+        return redirect()->route('replicaCreate', ['replicaId' => $request->ticket_id]);
     }
+
 }

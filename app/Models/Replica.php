@@ -28,4 +28,12 @@ class Replica extends Model
             return '-';
         }
     }
+
+    public function uploads()
+    {
+        return DB::table("upload_replica")
+        ->where('replica_id', $this->id)
+            ->select('*')
+            ->get();
+    }
 }

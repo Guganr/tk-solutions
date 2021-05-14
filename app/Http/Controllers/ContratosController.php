@@ -14,7 +14,8 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\DB;
 
 class ContratosController extends Controller {
-
+    
+    
     public function index() {
         abort_if(Gate::todoMundo(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contratos = Contrato::paginate(10);
@@ -49,6 +50,7 @@ class ContratosController extends Controller {
         $request->validate([
             'file_upload_contrato' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $this->entidade = 'contrato_id';
         $this->upload($request, 'upload_contrato', 'file_upload_contrato', $contrato->id);
         
         return redirect()->route('contratos.index');
@@ -82,12 +84,11 @@ class ContratosController extends Controller {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $check = $this->contratoPertenceAoVendedor('contratos', $contrato->id);
         abort_if(empty($check->all()), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        // dd($contrato->update($request->validated()));
         $request->validate([
             'file_upload_contrato' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        $uploadsCheck = $this->upload($request, 'upload_contrato', 'file_upload_contrato', $contrato->id);
-        // dd($uploadsCheck);
+            ]);
+        $this->entidade = 'contrato_id';
+        $this->upload($request, 'upload_contrato', 'file_upload_contrato', $contrato->id);
         return redirect()->route('contratos.show', $contrato);
     }
 

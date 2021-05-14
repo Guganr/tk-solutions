@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
+    protected $entidade;
     public function upload($request, $tabela, $fileNome, $entidadeId) {
         if ($request->hasFile($fileNome)) {
             $file = $request->file($fileNome);
@@ -27,7 +27,7 @@ class Controller extends BaseController
             $responsavel = auth()->user()->id;
             return DB::table($tabela)->insert([
                 'nome' => $fileNome,
-                'contrato_id' => $entidade_id,
+                $this->entidade => $entidade_id,
                 'responsavel' => $responsavel,
                 'caminho' => $fileCaminho,
             ]);
