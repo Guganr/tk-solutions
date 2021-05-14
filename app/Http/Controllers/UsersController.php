@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller {
 
@@ -30,12 +31,18 @@ class UsersController extends Controller {
 
     public function store(StoreUserRequest $request) {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $user = User::create($request->validated());
-        $user->roles()->sync($request->input('roles', []));
-        $clienteVendedor = new ClienteVendedor();
-        $clienteVendedor-> cliente_id = $user->id;
-        $clienteVendedor-> vendedor_id = auth()->user()->id;
-        $clienteVendedor->save();
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        if ($request->validated()) {
+            $user->save();
+            $user->roles()->sync($request->input('roles', []));
+            $clienteVendedor = new ClienteVendedor();
+            $clienteVendedor-> cliente_id = $user->id;
+            $clienteVendedor-> vendedor_id = auth()->user()->id;
+            $clienteVendedor->save();
+        }
         return redirect()->route('users.index');
     }
 
