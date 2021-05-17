@@ -6,12 +6,14 @@ use App\Http\Requests\StoreContratoRequest;
 use App\Http\Requests\UpdateContratoRequest;
 use App\Models\ClienteVendedor;
 use App\Models\Contrato;
+use App\Models\Pagamento;
 use App\Models\User;
 use App\Http\Middleware\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\DB;
+use App\Charts\ContratoChart;
 
 class ContratosController extends Controller {
     
@@ -21,13 +23,13 @@ class ContratosController extends Controller {
         $contratos = Contrato::paginate(10);
         $contratoCliente = $this->contratosCliente('contratos');
         $contratoAcessor = $this->contratosAcessor('contratos');
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         return view('contratos.index', compact(['contratos','contratoAcessor', 'contratoCliente', 'userRole']));
     }
 
     public function create() {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         $user = ClienteVendedor::where('vendedor_id', auth()->user()->id)->get();
         $id[] = '';
         $i = 0;
@@ -63,7 +65,7 @@ class ContratosController extends Controller {
         $checkAcessor = $this->contratoPertenceAoAcessor($contrato->acessor_id);
         if (!$checkAcessor)
             abort_if((empty($checkCliente->all()) && Gate::vendedor()), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         $uploads = $contrato->uploads();
         $upload = $uploads->all();
         return view('contratos.show', compact(['contrato', 'userRole', 'upload']));
@@ -106,5 +108,16 @@ class ContratosController extends Controller {
             ->where('role_user.role_id', 4)
             ->select('users.id', 'users.name')
             ->get();
+    }
+    public function teste()
+    {
+        $p = new Pagamento;
+        
+        $c = new Contrato;
+        $c->getContratosAssinados(1);
+
+        $contratos = Contrato::paginate(10);
+        $chart = new ContratoChart;
+        return view('contratos.teste', compact(['contratos', 'chart']));
     }
 }

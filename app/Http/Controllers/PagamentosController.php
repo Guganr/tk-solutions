@@ -47,7 +47,7 @@ class PagamentosController extends Controller {
          
         $contrato->load('pagamentos');
         $pagamentos = $contrato->pagamentos;
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         return view('pagamentos.show', compact(['contrato','pagamentos', 'userRole']));
     }
 

@@ -26,7 +26,7 @@ class TicketsController extends Controller
                 ->allowedFilters('status')
                 ->paginate(10);
         }
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         return view('tickets.index', compact(['tickets', 'userRole']));
     }
     public function create()
@@ -60,7 +60,7 @@ class TicketsController extends Controller
         $ticket = Ticket::find($id);
         $replicas = Replica::where('ticket_id', $id)->get();
         $ticket->load('replicas');
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         $uploads = $ticket->uploads();
         $upload = $uploads->all();
         // foreach ($replicas as $replica ) {

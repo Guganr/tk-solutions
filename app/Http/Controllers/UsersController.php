@@ -26,7 +26,8 @@ class UsersController extends Controller {
     public function create() {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $roles = Role::pluck('title', 'id');
-        return view('users.create', compact('roles'));
+        $userRole = User::find(24);
+        return view('users.create', compact(['roles', 'userRole']));
     }
 
     public function store(StoreUserRequest $request) {
@@ -55,11 +56,13 @@ class UsersController extends Controller {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $roles = Role::pluck('title', 'id');
         $user->load('roles');
-        return view('users.edit', compact('user', 'roles'));
+        $userRole = User::find(24);
+        return view('users.edit', compact(['user','userRole', 'roles']));
     }
 
     public function update(UpdateUserRequest $request, User $user) {
         abort_if(Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $user->password = Hash::make($request->password);
         $user->update($request->validated());
         $user->roles()->sync($request->input('roles', []));
         return redirect()->route('users.index');

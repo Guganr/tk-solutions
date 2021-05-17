@@ -28,6 +28,23 @@ class Contrato extends Model
     protected $dateFormat = 'U';
 
 
+    public function getContratosAssinados($mes) {
+        
+        $qtn = $this->whereRaw('month(data_assinatura) = ?', [$mes])->get();
+        return $qtn->count();
+    }
+
+
+    public function getValorRecebido($mes) {
+
+        $valor = Contrato::select((DB::raw('sum(valor) as valor')))
+            ->whereRaw('month(data_assinatura) = ?', [$mes])->get();     
+        return $valor->all();
+    }
+
+
+
+
     public function getDiasParaVencimento() {
         $hoje=date_create(date("Y-m-d"));
         $vencimento=date_create($this->data_vencimento);
