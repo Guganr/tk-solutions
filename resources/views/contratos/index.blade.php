@@ -24,6 +24,9 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Identificação do contrato
                         </th>
+                        <th scope="col" class="text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Status
+                        </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data da Assinatura
                         </th>
@@ -55,6 +58,9 @@
                       <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                           {{ $contrato->id }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->getStatus() }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -116,6 +122,9 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Identificação do contrato
                         </th>
+                        <th scope="col" class="text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Status
+                        </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data da Assinatura
                         </th>
@@ -144,6 +153,9 @@
                       <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                           {{ $contrato->id }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->getStatus() }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -194,6 +206,9 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Identificação do contrato
                         </th>
+                        <th scope="col" class="text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
+                          Status
+                        </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-black text-gray-500 bg-black uppercase tracking-wider">
                           Data da Assinatura
                         </th>
@@ -222,6 +237,10 @@
                       <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                           {{ $contrato->id }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {{ $contrato->getStatus() }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">

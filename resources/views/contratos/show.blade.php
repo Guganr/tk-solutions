@@ -25,6 +25,22 @@
                                 </tr>
                                 <tr class="border-b border-gray-600">
                                     <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        Tipo do contrato
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">
+                                        {{ $contrato->getTipoContrato() }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-600">
+                                    <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        Status
+                                    </th>
+                                    <td class="whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">
+                                        {{ $contrato->getStatus() }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-600">
+                                    <th scope="col" class="px-6 py-3 bg-black text-left text-xs font-medium text-white uppercase tracking-wider">
                                         data_assinatura
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-white bg-gray-900 divide-y divide-gray-600">

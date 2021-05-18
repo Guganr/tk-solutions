@@ -53,6 +53,9 @@ class StoreContratoRequest extends FormRequest
             ],
             'acessor_id'  => [
                 'integer',
+            ],
+            'tipo_contrato' => [
+                'integer',
             ]
         ];
     }
