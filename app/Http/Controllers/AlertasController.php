@@ -33,7 +33,7 @@ class AlertasController extends Controller {
         abort_if((empty($checkCliente->all()) || $checkAcessor) && Gate::vendedor(), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $contrato->load('alertas');
         $alertas = $contrato->alertas;
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         return view('alertas.show', compact(['contrato', 'alertas', 'userRole']));
     }
 }

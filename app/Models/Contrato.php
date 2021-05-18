@@ -15,6 +15,7 @@ class Contrato extends Model
 
     protected $fillable = [
         'data_assinatura', 
+        'tipo_contrato', 
         'valor', 
         'data_inicio_vigencia', 
         'data_vencimento', 
@@ -28,6 +29,51 @@ class Contrato extends Model
     protected $dateFormat = 'U';
 
 
+    public function getContratosAssinados($mes) {
+        
+        $qtn = $this->whereRaw('month(data_assinatura) = ?', [$mes])->get();
+        return $qtn->count();
+    }
+
+
+    public function getValorRecebido($mes) {
+
+        $valor = Contrato::select((DB::raw('sum(valor) as valor')))
+            ->whereRaw('month(data_assinatura) = ?', [$mes])->get();     
+        return $valor->all();
+    }
+
+
+
+
+    public function getTipoContrato()
+    {
+        switch ($this->tipo_contrato) {
+            case 1:
+                echo "Investimento";
+                break;
+            // case 2:
+            //     echo "Cliente";
+            //     break;
+            // case 3:
+            //     echo "Vendedor";
+            //     break;
+            // case 4:
+            //     echo "Acessor";
+            //     break;
+        }
+    }
+    public function getStatus()
+    {
+        $vigencia = date_create($this->data_inicio_vigencia);
+        $vencimento = date_create($this->data_vencimento);
+        $diff = date_diff($vigencia, $vencimento);
+        $operador = $diff->format("%R");
+        if ($operador == '-') 
+            echo "<p class='text-white p-5 bg-green-400'>Em vigência</p>";
+        else 
+            echo "<p class='text-white p-5 bg-red-400'>Encerrado</p>";
+    }
     public function getDiasParaVencimento() {
         $hoje=date_create(date("Y-m-d"));
         $vencimento=date_create($this->data_vencimento);

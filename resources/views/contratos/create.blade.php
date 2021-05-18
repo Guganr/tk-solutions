@@ -12,6 +12,15 @@
             </div>
             <form method="post" action="{{ route('contratos.store') }}"  enctype="multipart/form-data">
                @csrf
+               <div class="px-4 py-5 bg-black sm:p-6">
+                     <label for="tipo_contrato" class="block font-black text-sm text-white">Tipo Contrato</label>
+                     <select name="tipo_contrato" id="tipo_contrato" class="form-multiselect block rounded-md  bg-gray-900 text-white shadow-sm mt-1 block w-full" >
+                        <option value="1">Investimento</option>
+                     </select>
+                     @error('clientes')
+                        <p class="text-sm text-red-600">{{ $message }}</p>
+                     @enderror
+                  </div>
                <div class="shadow overflow-hidden sm:rounded-md">
                   <div class="px-4 py-5 bg-black sm:p-6">
                      <label for="data_assinatura" class="block font-black text-sm text-white">Data da Assinatura
@@ -57,7 +66,7 @@
                      @enderror
                   </div>
                   <div class="px-4 py-5 bg-black sm:p-6">
-                        <label for="clientes" class="block font-black text-sm text-white">clientes</label>
+                        <label for="clientes" class="block font-black text-sm text-white">Clientes</label>
                         <select name="clientes[]" id="clientes" class="form-multiselect block rounded-md  bg-gray-900 text-white shadow-sm mt-1 block w-full" >
                            @if (auth()->user()->getUserRole()->get()[0]->id > 1)
                               @foreach($clientes as $cliente)
@@ -98,7 +107,7 @@
                   </div>
                   <div class="flex items-center justify-end px-4 py-3 bg-black border-t border-gray-600 text-right sm:px-6">
                      <button class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white hover:text-green-500 uppercase tracking-widest hover:bg-white active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
-                     Criat Contrato
+                     Criar Contrato
                      </button>
                   </div>
                </div>

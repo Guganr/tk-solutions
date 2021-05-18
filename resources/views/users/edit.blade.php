@@ -44,23 +44,29 @@
                         <div class="px-4 py-5 bg-black sm:p-6">
                             <label for="roles" class="block font-black text-sm text-white">Roles</label>
                             <select name="roles[]" id="roles" class="bg-gray-900 text-white form-multiselect block rounded-md shadow-sm mt-1 block w-full">
-                                @foreach($roles as $id => $role)
-                                    @if ($role != "Cliente" && $role != "Acessor")
-                                        @can('adm_access')
+                                @if (!$userRole->isAdmin())
+                                    @foreach($roles as $id => $role)
+                                        @if ($role != "Cliente" && $role != "Acessor")
+                                            @can('adm_access')
+                                                <option value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
+                                            @endcan    
+                                        @endif
+                                        @if ($role == "Cliente")
+                                            @can('acessor_access')
+                                            <option selected value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
+                                            @endcan    
+                                        @endif
+                                        @if ($role == "Acessor")
+                                            @can('acessor_access')
+                                            <option  value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
+                                            @endcan    
+                                        @endif
+                                        @endforeach
+                                    @else
+                                        @foreach($roles as $id => $role)
                                             <option value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
-                                        @endcan    
+                                        @endforeach
                                     @endif
-                                    @if ($role == "Cliente")
-                                        @can('vendedor_access')
-                                        <option selected value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
-                                        @endcan    
-                                    @endif
-                                    @if ($role == "Acessor")
-                                        @can('vendedor_access')
-                                        <option  value="{{ $id }}"{{ in_array($id, old('roles', [])) ? ' selected' : '' }}>{{ $role }}</option>
-                                        @endcan    
-                                    @endif
-                                @endforeach
                             </select>
                             @error('roles')
                                 <p class="text-sm text-red-600">{{ $message }}</p>

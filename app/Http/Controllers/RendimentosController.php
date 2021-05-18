@@ -49,7 +49,7 @@ class RendimentosController extends Controller {
 
         $contrato->load('rendimentos');
         $rendimentos = $contrato->rendimentos;
-        $userRole = User::find(1);
+        $userRole = User::find(24);
         return view('rendimentos.show', compact(['contrato', 'rendimentos', 'userRole']));
 
     }

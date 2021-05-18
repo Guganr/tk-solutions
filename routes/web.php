@@ -6,7 +6,9 @@ use App\Models\Contrato;
 use App\Models\ClienteVendedor;
 use App\Models\User;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Storage;
 
 function getContratosDashboard(){
     $cliente = null;
@@ -77,6 +79,7 @@ function getUsuariosDashboard(){
 } 
 
 Route::get('/', function () {
+
     return view('auth/login');
 });
 
@@ -84,6 +87,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
     // $contratos = getContratosDashboard();
     // $users = getUsuariosDashboard();
+    Storage::disk('local')->put('logo.png', '');
     return view('dashboard');
     // return view('dashboard', compact(['contratos', 'users']));
 })->name('dashboard');

@@ -26,7 +26,7 @@
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
-                        <img src="{{storage_path('app\logo.png')}}" class="w-full">
+                        <img src="https://www.armazemsaojudastadeu.com/wp-content/uploads/2021/05/logo_site_tk_solutions_assessoria_de_negocios_01-768x182-1.png" style="width: 150px">
                     </a>
                 </div>
 
@@ -57,9 +57,9 @@
                     </a>
                 </div>
                 @endcan
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <h2 class="inline-flex bg-yellow-300 items-center font-black text-blue-900">{{ getRole() }} id: {{auth()->user()->id}}</h2>
-                </div>
+                </div> --}}
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
